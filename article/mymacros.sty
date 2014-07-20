@@ -1,3 +1,52 @@
 \newcommand{\api}{A$\pi$ 計算}
 
 \newcommand{\apie}{A$\pi$-calculus }
+
+
+\newcommand{\tmp}{仮名関数}
+
+\newcommand{\srcref}[1]{図 \ref{#1}}
+
+\newcommand{\lemmaref}[1]{補題 \ref{#1}}
+
+\newcommand{\free}{自由名}
+
+\newcommand{\unique}{一意性}
+
+\newcommand{\fresh}{新鮮性}
+
+\newcommand{\persist}{永続性}
+
+\newcommand{\recep}{窓口集合}
+
+\newcommand{\conf}{配置}
+
+%% configuration
+
+\newcommand{\nilconf}{0}
+
+\newcommand{\actorconf}[3]{#1(#2).#3}
+
+\newcommand{\sendconf}[2]{\bar{#1} #2}
+
+\newcommand{\restrictconf}[2]{(\nu #1)#2}
+
+\newcommand{\composeconf}[2]{#1 | #2}
+
+\newcommand{\caseconf}[2]{{\tt case} \ #1 \ {\tt of} \ (#2)}
+
+\newcommand{\behaviorconf}[2]{B \tuple{#1 ; #2}}
+
+\newcommand{\behaviortemplate}[5]{(#1,#2) \actorconf{#3}{#4}{#5}}
+
+\newcommand{\instantiate}[7]{(\behaviortemplate{#1}{#2}{#3}{#4}{#5})(#6,#7)}
+
+\newcommand{\tupapp}{\tilde{+}}
+
+%% typing
+
+\newcommand{\typing}[3]{#1 ; #2 \vdash #3}
+
+%%
+
+\newcommand{\tuple}[1]{\langle #1 \rangle}

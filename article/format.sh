@@ -1,5 +1,12 @@
 #!/bin/sh
 
+files=(sample.tex section1.tex section2.tex section3.tex section4.tex section5.tex section6.tex)
+for file in ${files[@]}
+do
+    sed -i -e "s/。/．/g" $file
+    sed -i -e "s/、/，/g" $file
+done
+
 export TEXINPUTS=:.//
 export BIBINPUTS=:.//
 export BSTINPUTS=:.//
