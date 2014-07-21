@@ -7,9 +7,13 @@
 
 % ユーザが定義したマクロなどはここに置く．ただし学会誌のスタイルの
 % 再定義は原則として避けること．
-\usepackage{proof,amsmath,bcprules,listings,lstcoq,jlisting,enumitem,url,amsthm,nccmath,subfig}
+\usepackage{proof,amsmath,bcprules,listings,lstcoq,jlisting,enumitem,url,amsthm,nccmath,subfig,url}
 \usepackage{mymacros}
 
+\newtheorem{thm}{定理}[section]
+\newtheorem{lem}{補題}[section]
+\newtheorem{axm}{公理}[section]
+\newtheorem{dfn}{定義}[section]
 
 \begin{document}
 
@@ -20,7 +24,7 @@
 % 和文論文の場合，姓と名の間には半角スペースを入れ，
 % 複数の著者の間は全角スペースで区切る
 %
-\author{安武 祥平
+\author{安武 祥平　渡部 卓雄
 %
 % ここにタイトル英訳 (英文の場合は和訳) を書く．
 %
@@ -30,7 +34,7 @@
 % 所属 (和文および英文) を書く．
 % 複数著者の所属はまとめてよい．
 %
-\shozoku{Shohei Yasutake}{東京工業大学大学院情報理工学研究科計算工学専攻}%
+\shozoku{Shohei Yasutake}{東京工業大学大学院情報理工学研究科}%
 {Dept.\ of Computer Science, Tokyo Institute of Technology}}
 
 % 和文アブストラクト
@@ -53,7 +57,7 @@
 \input{./section3.tex}
 \input{./section4.tex}
 \input{./section5.tex}
-\input{./section6.tex}
+%% \input{./section6.tex}
 
 
 {\bf 謝辞}\
