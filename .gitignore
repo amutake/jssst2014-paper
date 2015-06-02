@@ -1,4 +1,3 @@
-article/tmp
-sample/tmp
+/tmp
 *.tex-e
 .DS_Store

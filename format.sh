@@ -14,6 +14,11 @@ export BSTINPUTS=:.//
 mkdir -p tmp
 platex -shell-escape -output-directory=tmp sample
 pbibtex tmp/sample
+
+sed -i -e "s/: {A forma/{A forma/g" tmp/sample.bbl
+sed -i -e "s/: The Coq/The Coq/g" tmp/sample.bbl
+rm tmp/sample.bbl-e
+
 platex -shell-escape -output-directory=tmp sample
 platex -shell-escape -output-directory=tmp sample
 dvipdfmx tmp/sample

@@ -1,0 +1,102 @@
+% 以下の3行は変更しないこと．
+\documentclass[T]{compsoft}
+\taikai{2014}
+\pagestyle {empty}
+
+\usepackage [dvipdfmx] {graphicx}
+
+% ユーザが定義したマクロなどはここに置く．ただし学会誌のスタイルの
+% 再定義は原則として避けること．
+\usepackage{proof,amsmath,bcprules,listings,lstcoq,jlisting,enumitem,url,amsthm,nccmath,subfig,url}
+\usepackage{mymacros}
+
+\newtheorem{thm}{定理}[section]
+\newtheorem{lem}{補題}[section]
+\newtheorem{axm}{公理}[section]
+\newtheorem{dfn}{定義}[section]
+
+\begin{document}
+
+% 論文のタイトル
+\title{\api の Coq による形式化}
+
+% 著者
+% 和文論文の場合，姓と名の間には半角スペースを入れ，
+% 複数の著者の間は全角スペースで区切る
+%
+\author{安武 祥平　渡部 卓雄
+%
+% ここにタイトル英訳 (英文の場合は和訳) を書く．
+%
+\ejtitle{A formalization of \apie using Coq}
+%
+% ここに著者英文表記 (英文の場合は和文表記) および
+% 所属 (和文および英文) を書く．
+% 複数著者の所属はまとめてよい．
+%
+\shozoku{Shohei Yasutake}{東京工業大学大学院情報理工学研究科}%
+{Dept.\ of Computer Science, Tokyo Institute of Technology}}
+
+% 和文アブストラクト
+\Jabstract{%
+アクターモデルは並行計算のモデルのひとつであり，互いに非同期メッセージをやりとりするアクターと呼ばれる計算主体によって計算システムを表現する．
+アクターモデルのもつ性質には，アクターの名前の一意性と新鮮性，およびアクターの永続性が含まれる．
+これらの性質を\(\pi\)計算の型システムとして導入し，アクターモデルを形式化したA\(\pi\)計算がAghaらによって提案されている．
+Aπ計算の型システムにおける健全性とは，型付けされた項はアクターモデルとしてのふるまいを示すということであるが，その証明は形式的に与えられていない．
+本研究では，A\(\pi\)計算およびその型システムの定義をみなおすことで，型システムの健全性について定理証明支援系Coqを用いた形式的な証明を与える．}
+
+\Eabstract{%
+The Actor model is a model of concurrent computation based on autonomous computing entities called actors that communicate through asynchronous message passing.
+The properties of the Actor model include uniqueness and freshness of actor names and persistency of actors.
+Agha et al.\ proposed a typed asynchronous variant of \(\pi\)-calculus called
+A\(\pi\)-calculus whose type system imposes these three properties.
+In A\(\pi\)-calculus, the soundness of the type system means that a typed term certainly behaves as an actor configuration.
+In this paper, by reconsidering the definitions of the terms and types of A\(\pi\)-calculus,
+we give a formal proof of the soundness using Coq.}
+%% \Jabstract{%
+%%   アクターモデルは並行計算のモデルのひとつであり，アクターと呼ばれる計算主体がそれぞれ並列に動作し互いに非同期にメッセージを送りあって計算を進める．
+%%   アクターモデルは，アクターの名前は一意であるという性質，他のアクターの名前あるいはメッセージとして送られてきた名前ではアクターを作れないという性質，アクターにはいつでもメッセージを送ることができるという性質，の3つの性質を持っている．
+%%   これらの性質を満たすように $\pi$ 計算に型を付け，アクターモデルとしての振る舞いを強制させたものに \api があるが，\api が確かにアクターモデルとしての振る舞いを示すかどうかについて形式的な証明はまだ与えられていない．
+%%   そこで，本研究では，\api およびその型システムの定義を，等価だが証明を進めやすい定義に変更するなどの工夫を行い，\api の型システムがアクターモデルとしての振る舞いを強制することについて，定理証明支援系 Coq を用いて形式的な証明を与えた．
+%% }
+
+%% % 英文アブストラクト（本サンプルの原論文にはなし）
+%% \Eabstract{
+%%   The actor model is a model of concurrent computation. Computation entity called actor communicates with other actors via asynchronous messages.
+%%   The actor model have three properties.
+%%   First, each actor has a unique name (uniqueness property).
+%%   Second, actors cannot be created with names received in a message (freshness property).
+%%   Third, actors do not disappear after processing a message (persistence property).
+%%   \apie is a typed asynchronous $\pi$-calculus and the type system imposes these properties. However, its formal proof is not given yet.
+%%   In this research, we transform the definition of \apie and its type system into equivalent definition, and prove the soundness property of the type system using Coq theorem prover.
+%% }
+%
+\maketitle \thispagestyle {empty}
+
+\input{./section1.tex}
+\input{./section2.tex}
+\input{./section3.tex}
+\input{./section4.tex}
+\input{./section5.tex}
+%% \input{./section6.tex}
+
+
+{\bf 謝辞}\
+%% \section*{謝辞}
+本研究の一部はJSPS科研費24500033の助成を受けている．
+%% 本論文の初期の版について議論していただいた渡部卓雄准教授に感謝する．
+%% また，本研究を行うにあたり，ご指導いただいた
+%% 本論文の初期の版について議論していただいたRobert Tarjan氏(Princeton大)，
+%% 毛受哲氏(NEC)，中谷祐介氏(早稲田大)に感謝する．
+
+\bibliographystyle {sty/jssst}
+\bibliography {sample}
+
+%% \appendix
+%% \section{付録: \LaTeX による論文作成のガイド}
+
+%% ここに，以前の \verb|sample.tex| では，論文作成のガイドがあったが，
+%% その内容は \verb|guide.tex| に移動した．
+%% \verb|guide.tex| は，スタイルファイル配布物一式の中に含まれている．
+
+\end{document}

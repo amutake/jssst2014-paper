@@ -1,7 +1,7 @@
 \section{\api}
 
-本章では，アクターモデルの振る舞いを強制するために $ \pi $ 計算に型を付けた \api について説明する．
-まず準備として記号の定義をし．\api の\conf の定義をする．次に型システムを導入するが，その際に仮名関数という関数を導入し，型付け規則を定義する．最後にこの型システムにおける健全性について述べる．
+本節では，アクターモデルの振る舞いを強制するために非同期 $\pi$ 計算に型を付けた \api について説明する．
+まず \api における\conf の定義をする．次に型システムを導入するが，その際に仮名関数という関数を導入し，型付け規則を定義する．最後にこの型システムにおける健全性について述べる．
 また，\api の定義および使われている記号は，文献\cite[Dean2008]{Agha:2004aa} で用いられているものを用いる．
 
 %% \section{準備}
@@ -24,8 +24,8 @@
 
 \subsection{\conf}
 
-\conf (configuration)は，アクターシステムのある時点での状態を表す．
-\conf の文法は，\srcref{api_config} のようになっている．
+%% \conf (configuration)は，アクターシステムのある時点での状態を表す．
+\api における\conf の文法は，\srcref{api_config} のようになっている．
 
 \begin{figure}[h]
   \begin{eqnarray}
@@ -191,7 +191,7 @@
 
 \begin{dfn}[\tmp]
   \tmp $f$ は，集合 $X$ から集合 $X^*$ への写像である．
-  ただし，$ \bot, \ast \notin {\cal N}, X \subset {\cal N}, X^* = X \cup \{\bot,\ast\} $ である．
+  ただし，${\cal N}$ を名前全体の集合として，$ \bot, \ast \notin {\cal N}, X \subset {\cal N}, X^* = X \cup \{\bot,\ast\} $ である．
 \end{dfn}
 
 \tmp の入力と返り値の関係は，以下のような意味を持つ．
@@ -212,40 +212,44 @@
 
 \tmp は以下に示す $ch$ 関数，\tmp の合成，\tmp の制限のいずれかで作ることができる．
 
-\begin{adjustvboxheight}
 \begin{dfn}[$ch$]
   $ch$ は名前の組をとり，\tmp を返す関数である．組の長さは任意である．組を $\tuple{x_1,x_2,...,x_n}$ としたとき，$ch(\tuple{x_1,x_2,...,x_n})$ は以下のような\tmp となる．\\
+\begin{adjustvboxheight}
   \[ ch(\tuple{x_1,x_2,...,x_n})(x_i) = \begin{cases}
     x_{i + 1} & 1 \leq i < n \mbox{のとき} \\
     \bot & i = n \mbox{のとき}
   \end{cases} \]
   \vspace{1pt}
-\end{dfn}
 \end{adjustvboxheight}
+\end{dfn}
 
-\begin{adjustvboxheight}
+
+
 \begin{dfn}[\tmp の合成]
   $f_1 : \rho_1 \rightarrow \rho_1^*$，$f_2 : \rho_2 \rightarrow \rho_2^*$ とする．
   \tmp の合成を表す二項演算子 $f_1 \oplus f_2 : \rho_1 \cup \rho_2 \rightarrow (\rho_1 \cup \rho_2)^*$ を以下のように定義する．\\
+\begin{adjustvboxheight}
   \[ (f_1 \oplus f_2)(x) = \begin{cases}
-    f_1(x) & x \in \rho_1 \mbox{かつ} f_1(x) \neq \bot \mbox{，または} \\
-    & x \in \rho_1 \mbox{かつ} x \notin \rho_2 \mbox{のとき} \\
+    f_1(x) & x \in \rho_1 \mbox{かつ} f_1(x) \neq \bot \mbox{，また} \\
+    & \mbox{は} x \in \rho_1 \mbox{かつ} x \notin \rho_2 \mbox{のとき} \\
     f_2(x) & \mbox{その他}
   \end{cases} \]
   \vspace{1pt}
-\end{dfn}
 \end{adjustvboxheight}
+\end{dfn}
 
-\begin{adjustvboxheight}
+
 \begin{dfn}[\tmp の定義域の制限]
   $f : \rho_1 \rightarrow \rho_1^*, \rho \subset \rho_1$ である $f, \rho$ に対して定義域の制限を表す二項演算子 $f | \rho : \rho \rightarrow \rho^*$ を以下のように定義する． \\
+\begin{adjustvboxheight}
   \[ (f | \rho)(x) = \begin{cases}
     f(x) & f(x) \in \rho \mbox{のとき} \\
     \ast & \mbox{その他}
   \end{cases} \]
   \vspace{1pt}
-\end{dfn}
 \end{adjustvboxheight}
+\end{dfn}
+
 
 \subsubsection{\tmp が満たすべき性質}
 
@@ -332,7 +336,7 @@ $ f^{*}(f(x)) = \bot $ は，仮の名前のアクターはさらに仮の名前
   \label{api:typing}
 \end{figure*}
 
-それぞれの規則についての説明を以下に示す．
+%% それぞれの規則についての説明を以下に示す．
 
 %% \begin{description}[style=nextline,font=\normalfont\scshape]
 %%   \item[Nil]
@@ -366,29 +370,25 @@ $ f^{*}(f(x)) = \bot $ は，仮の名前のアクターはさらに仮の名前
 
 \api の型システムの健全性は以下のように定義されている．
 
-\begin{dfn}[\api の健全性]
-  \conf $P$ について，$\typing{\rho}{f}{P}$ で型付けできたとき．以下の3つの補題を満たすならば，この型システムは健全である．
+\begin{thm}[\api の健全性]
+  \conf $P$ について，$\typing{\rho}{f}{P}$ で型付けできたとき，{\rm 以下の3つの性質を満たす．}
 
-  \begin{lem}[\recep の健全性]
-    $\rho$ は $P$ 中に現れる\free の部分集合
-  \end{lem}
-
-  \begin{lem}[仮名の取り方の健全性]
-    以下の3つを満たす．
+  \begin{itemize}
+  \item
+    $\rho$ は $P$ 中に現れる\free の部分集合である {\rm (\recep の健全性)}
+  \item
+   {\rm  以下の3つを満たす (仮名の取り方の健全性)}
     \begin{enumerate}
       \item $ f(x) \neq x $
       \item $ f^{*}(f(x)) = \bot $
       \item $ f(x) = f(y) \neq \{\bot, \ast\} \Rightarrow x = y $
     \end{enumerate}
-  \end{lem}
+  \item
+    $\typing{\rho'}{f'}{P}$ ならば， $\rho = \rho'$ かつ $f = f'$ {\rm (型付けの一意性)}
+  \end{itemize}
+\end{thm}
 
-  \begin{lem}[型付けの一意性]
-    $\typing{\rho'}{f'}{P}$ ならば， $\rho = \rho'$ かつ $f = f'$
-  \end{lem}
-
-\end{dfn}
-
-それぞれの補題は，以下の意味を持っている．
+それぞれは以下の意味を持っている．
 
 \begin{description}[style=nextline]
   \item[\recep の健全性]
@@ -400,11 +400,11 @@ $ f^{*}(f(x)) = \bot $ は，仮の名前のアクターはさらに仮の名前
 \end{description}
 
 
-\api は以下の定理が成り立つ．
+%% \api は以下の定理が成り立つ．
 
-\begin{thm}[]
-  \api の型システムは健全である．
-\end{thm}
+%% \begin{thm}[]
+%%   \api の型システムは健全である．
+%% \end{thm}
 
 %% \begin{thm}[\api の健全性]
 
