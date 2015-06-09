@@ -116,11 +116,12 @@ Coq による形式化では簡単にするためにその情報を捨て，任�
 よって，$ch$ 関数はこの3パターンに限定でき，それぞれ $ch_0, ch_1, ch_2$ と書くこととする．
 また，\tmp の定義域の制限を行う二項演算子 $(|)$ が現れるのは \textsc{Res} のみで，かつそれはもとの仮名関数の定義域からあるひとつの要素を取り去るものとしてしか使われていない．
 後の証明を簡単にするために，この演算子を，制限後の集合ではなく定義域から取り去る要素を右手にとるものとして定義する．
+ただし，この演算子はもとの演算子 $(|)$ とは定義が異なるため，混乱を避けるために別の記号 $(\setminus)$ を用いることにする．
 
 \begin{dfn}[\tmp の定義域の制限]
-  $f : \rho \rightarrow \rho^*, x \in \rho$ である $f, x$ に対して定義域の制限を表す二項演算子 $f | x : \rho - \{x\} \rightarrow (\rho - \{x\})^*$ を以下のように定義する． \\
+  $f : \rho \rightarrow \rho^*, x \in \rho$ である $f, x$ に対して定義域の制限を表す二項演算子 $f \setminus x : \rho - \{x\} \rightarrow (\rho - \{x\})^*$ を以下のように定義する． \\
 \begin{adjustvboxheight}
-  \[ (f | x)(y) = \begin{cases}
+  \[ (f \setminus x)(y) = \begin{cases}
     \ast & f(y) = x \mbox{のとき} \\
     f(y) & \mbox{その他}
   \end{cases} \]
@@ -129,7 +130,7 @@ Coq による形式化では簡単にするためにその情報を捨て，任�
 \end{dfn}
 
 
-また，$ch_0, ch_1, ch_2, \oplus, |$ について仮名関数の性質を満たすことを証明した．
+また，$ch_0, ch_1, ch_2, \oplus, \setminus$ について仮名関数の性質を満たすことを証明した．
 その際，$ch_2$ は引数である2つの名前が異なることを，$\oplus$ は $in\_domain\_in\_range, fun\_exclusive$ が成り立つという前提を加えている．
 
 %% 以上の5つを \srcref{tmp_fun} と定義した．
@@ -332,7 +333,7 @@ $f, f_1, ..., f_n$ が相互に互換性を持つことは自明ではない．�
   \infrule[Res]{
     \typing{\rho}{f}{P}
   }{
-    \typing{\rho - \{x\}}{f|x}{\restrictconf{x}{P}}
+    \typing{\rho - \{x\}}{f \setminus x}{\restrictconf{x}{P}}
   }
   \caption{型付け規則 \textsc{Res}}
   \label{api:res_rule}
@@ -536,10 +537,10 @@ Coq による定義では振る舞いの雛形からアクターを作る\conf �
 %%       $\typing{\rho \cup \rho'}{f \oplus f'}{\caseconf{x}{y : P, y_1 : P_1, ... , y_i : P_i}}$ となる型付け規則は \textsc{Case-cons} のみであり，かつ\recep は $\rho, \rho'$ ，\tmp は $f,f'$ で構築されている．よって命題を満たす．
 %%     \item[(\textsc{Comp})]
 %%       この型付け規則の前提は $\typing{\rho_1}{f_1}{P_1}$ および $\typing{\rho_2}{f_2}{P_2}$ であり，帰納法の仮定からこれらの型付けは一意である．
-%%       $\typing{\rho_1 \cup \rho_2}{f_1 \oplus f_2}{P_1 | P_2}$ となる型付け規則は \textsc{Comp} のみであり，かつ\recep は $\rho_1, \rho_2$ ，\tmp は $f_1,f_2$ で構築されている．よって命題を満たす．
+%%       $\typing{\rho_1 \cup \rho_2}{f_1 \oplus f_2}{P_1 \setminus P_2}$ となる型付け規則は \textsc{Comp} のみであり，かつ\recep は $\rho_1, \rho_2$ ，\tmp は $f_1,f_2$ で構築されている．よって命題を満たす．
 %%     \item[(\textsc{Res})]
 %%       この型付け規則の前提は $\typing{\rho}{f}{P}$ ，帰納法の仮定からこの型付けは一意である．
-%%       $\typing{\rho - \{x\}}{f | x}{(\nu x)P}$ となる型付け規則は \textsc{Res} のみであり，かつ\recep と\tmp は共に $\rho, x$ で構築されている．よって命題を満たす．
+%%       $\typing{\rho - \{x\}}{f \setminus x}{(\nu x)P}$ となる型付け規則は \textsc{Res} のみであり，かつ\recep と\tmp は共に $\rho, x$ で構築されている．よって命題を満たす．
 %%     \item[(\textsc{Inst-1})]
 %%       $\instantiate{\tuple{u}}{\tilde{v}}{u}{z}{P}{\tuple{x}}{\tilde{y}}$ の型付け規則は \textsc{Inst-1} のみで，かつ\recep と\tmp は $x$ のみで構築されているので，命題を満たす．
 %%     \item[(\textsc{Inst-2})]
