@@ -115,7 +115,7 @@ Coq では簡単にするためにその情報を捨て，任意の {\tt name} �
 
 
 \begin{dfn}[\tmp の定義域の制限]
-  $f : \rho \rightarrow \rho^*, x \in \rho$ である $f, x$ に対して定義域の制限を表す二項演算子 $f | x : \rho - x \rightarrow (\rho - x)^*$ を以下のように定義する． \\
+  $f : \rho \rightarrow \rho^*, x \in \rho$ である $f, x$ に対して定義域の制限を表す二項演算子 $f | x : \rho - \{x\} \rightarrow (\rho - \{x\})^*$ を以下のように定義する． \\
 \begin{adjustvboxheight}
   \[ (f | x)(y) = \begin{cases}
     \ast & f(y) = x \mbox{のとき} \\
