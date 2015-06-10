@@ -36,10 +36,6 @@
   \label{api_config}
 \end{figure}
 
-ただし，$B$ は振る舞いの雛形で，$B \defeq \behaviortemplate{\tilde{x}}{\tilde{y}}{x_1}{z}{P}$ である．
-これは，$\tilde{x}$ という名前の組と，$\tilde{y}$ という名前の組を受け取り，$\tilde{x}$ の第一要素 $x_1$ を名前とし，メッセージ $v$ を受け取って $P$ を実行するようなアクターを返す関数であることを意味する．
-また，$\tilde{x}$ の要素数は1または2とすし，この理由は \ref{typing_rule} 節で示す．
-
 %% \begin{figure}[h]
 %%   \begin{align*}
 %%     P & ::= \nilconf & \mbox{何もしない} \\
@@ -55,25 +51,26 @@
 %% \end{figure}
 
 
-%% それぞれの説明を以下に示す．
-通常の $\pi$ 計算と異なる点は，他のアクター(プロセス)にメッセージを送ったあとにさらに何かを実行できないこと，名前の場合分けが書けること，振る舞いの雛形からアクターを作るための文法があること，の3つである．
+それぞれの説明を以下に示す．
 
-%% \begin{description}[style=nextline,leftmargin=50pt]
-%%   \item[$\nilconf$]
-%%     何もしない．
-%%   \item[$\actorconf{x}{y}{P}$]
-%%     $(y).P$ という振る舞いを持つアクター $x$ をつくる．ここで振る舞いとは，$y$ というメッセージを受け取って $P$ を実行するという意味である．
-%%   \item[$\sendconf{x}{y}$]
-%%     $x$ という名前のアクターに $y$ という名前を送る．
-%%   \item[$\restrictconf{x}{P}$]
-%%     $P$ 中に現れる $x$ という名前を環境から隠す．
-%%   \item[$\composeconf{P1}{P2}$]
-%%     $ P1 $ と $ P2 $ を並列に実行させる．
-%%   \item[$\caseconf{x}{y_1 : P_1 ,..., y_n : P_n}$]
-%%     名前 $x$ が $y_i$ と一致したとき $ P_i $ を実行する．一致するものが複数ある場合は，そのなかから非決定的に選ばれたものを実行する，一致するものがない場合は $0$ になる．
-%%   \item[$\instantiate{\tilde{u}}{\tilde{v}}{u_1}{z}{P}{\tilde{x}}{\tilde{y}}$]
-%%     振る舞いの雛形である $\behaviortemplate{\tilde{u}}{\tilde{v}}{u_1}{z}{P}$ に，$(\tilde{x}, \tilde{y})$ を与えてアクターを作る．ただし $len(\tilde{x}) = len(\tilde{u}), len(\tilde{y}) = len(\tilde{v})$ かつ $\tilde{x}$ は要素数が1または2の組であり，$x_1$ は $\tilde{x}$ の1番目の要素である．例えば，$\instantiate{\tuple{u}}{\tuple{v}}{u}{z}{\sendconf{v}{z}}{\tuple{x}}{\tuple{y}}$ は，$\actorconf{x}{z}{\sendconf{y}{z}}$ となる．
-%% \end{description}
+\begin{description}[style=nextline,leftmargin=50pt]
+  \item[$\nilconf$]
+    空の配置であることを表す．
+  \item[$\actorconf{x}{y}{P}$]
+    $(y).P$ という振る舞いを持つアクター $x$ をつくる．ここで振る舞いとは，$y$ というメッセージを受け取って $P$ を実行するという意味である．
+  \item[$\sendconf{x}{y}$]
+    $x$ という名前のアクターに $y$ という名前を送る．
+  \item[$\restrictconf{x}{P}$]
+    $P$ 中に現れる $x$ という名前をこの配置の外から隠す．
+  \item[$\composeconf{P1}{P2}$]
+    $P1$ と $P2$ からなる配置であることを表す．
+  \item[$\caseconf{x}{y_1 : P_1 ,..., y_n : P_n}$]
+    名前 $x$ が $y_i$ と一致したとき $P_i$ になる．一致するものが複数ある場合は，そのなかから非決定的に選ばれたものになる，一致するものがない場合は $\nilconf$ になる．
+  \item[$\behaviorconf{\tilde{x}}{\tilde{y}}$]
+    振る舞いの雛形 $B$ からアクターをつくる．
+    $B \defeq \behaviortemplate{\tilde{x}}{\tilde{y}}{x_1}{z}{P}$ であり，$\tilde{x}$ という名前の組と，$\tilde{y}$ という名前の組を受け取り，$\tilde{x}$ の第一要素 $x_1$ を名前とし，メッセージ $v$ を受け取って $P$ を実行するようなアクターを返す関数であることを意味する．
+    また，$\tilde{x}$ の要素数は1または2とし，この理由は \ref{typing_rule} 節で示す．
+\end{description}
 
 
 \subsection{型システムの導入}
