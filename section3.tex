@@ -288,7 +288,8 @@ $ f^{*}(f(x)) = \bot $ は，仮名のアクターはさらに仮の名前を持
 
 \label{typing_rule}
 
-\api が先に述べた性質を満たすようにするための型付け規則は \srcref{api:typing} のようになっている．\conf $ P $ ，$ P $ の\recep $ \rho $ ，$ P $ 中の仮の名前から正規の名前への写像 $f : \rho \rightarrow \rho^*$ で， $\rho ; f \vdash P$ が成り立つとき，$ P $ は正しく型付けされている．
+\api が先に述べた性質を満たすようにするための型付け規則は\srcref{api:typing} のようになる．
+\conf $ P $，$ P $ の\recep $ \rho $，$ P $ 中の仮の名前から正規の名前への写像 $f : \rho \rightarrow \rho^*$ で， $\rho ; f \vdash P$ が成り立つとき，$ P $ は正しく型付けされているという．
 
 \begin{figure*}[t]
   \infrule[Nil]{
@@ -347,32 +348,32 @@ $ f^{*}(f(x)) = \bot $ は，仮名のアクターはさらに仮の名前を持
   \label{api:typing}
 \end{figure*}
 
-%% それぞれの規則についての説明を以下に示す．
+それぞれの規則についての説明を以下に示す．
 
-%% \begin{description}[style=nextline,font=\normalfont\scshape]
-%%   \item[Nil]
-%%     $\nilconf$ 中にはアクターは存在しないので，\recep は空集合，\tmp は空関数で型付けできる．
+\begin{description}[style=nextline,font=\normalfont\scshape]
+\item[Nil]
+  $\nilconf$ 中にはアクターは存在しないので，\recep は空集合，\tmp は空関数で型付けできる．
 
-%%   \item[Msg]
-%%     $\sendconf{x}{y}$ 中にはアクターは存在しないので，\textsc{Nil} と同様に\recep は空集合，\tmp は空関数で型付けできる．
+\item[Msg]
+  $\sendconf{x}{y}$ 中にはアクターは存在しないので，\textsc{Nil} と同様に\recep は空集合，\tmp は空関数で型付けできる．
 
-%%   \item[Act]
-%%     $y \notin \rho$ は，メッセージの名前でアクターを作れないということを表しているため，これがあることで\fresh が保証される．
-%%     また，$\hat{z} = \{z\}$ であるときは，$z$ は $x$ を一時的な名前としてとっていることを表しており，$\hat{z} = \emptyset$ であるときは，$x$ がアクターの正規の名前であることを表している．
+\item[Act]
+  $y \notin \rho$ は，メッセージの名前でアクターを作れないということを表しているため，これがあることで\fresh が保証される．
+  また，$\hat{z} = \{z\}$ であるときは，$z$ は $x$ を一時的な名前としてとっていることを表しており，$\hat{z} = \emptyset$ であるときは，$x$ がアクターの正規の名前であることを表している．
 
-%%   \item[Case]
-%%     相互に互換性を持つという条件によって，一つのアクターが複数の仮の名前を持つということが起こらないことを保証している．
+\item[Case]
+  相互に互換性を持つという条件によって，一つのアクターが複数の仮の名前を持つということが起こらないことを保証している．
 
-%%   \item[Comp]
-%%     $\rho_1 \cap \rho_2 = \phi$ から，\unique が保証される．
+\item[Comp]
+  $\rho_1 \cap \rho_2 = \phi$ から，\unique が保証される．
 
-%%   \item[Res]
-%%     $P$ 中に現れるアクター $x$ を外部から隠すので，\recep から $\{x\}$ を引き，\tmp も制限している．
+\item[Res]
+  $P$ 中に現れるアクター $x$ を外部から隠すので，\recep から $\{x\}$ を引き，\tmp も制限している．
 
-%%   \item[Inst]
-%%     $len(\tilde{x}) = 2$ であるときは，$x_1$ は $x_2$ の仮の名前であることを表している．また，$x_1 \neq x_2$ という条件によって，仮の名前が正規の名前と同名にならないようにしている．
-%%     $len(\tilde{x}) = 1$ であるときは，$x_1$ は正規の名前である．
-%% \end{description}
+\item[Inst]
+  $len(\tilde{x}) = 2$ であるときは，$x_1$ は $x_2$ の仮の名前であることを表している．また，$x_1 \neq x_2$ という条件によって，仮の名前が正規の名前と同名にならないようにしている．
+  $len(\tilde{x}) = 1$ であるときは，$x_1$ は正規の名前である．
+\end{description}
 
 \subsection{型システムの健全性}
 
