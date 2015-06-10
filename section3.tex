@@ -30,11 +30,15 @@
   \begin{eqnarray}
     P & ::= & \nilconf \mid \actorconf{x}{y}{P} \mid \sendconf{x}{y} \mid \restrictconf{x}{P} \mid \composeconf{P_1}{P_2} \ \nonumber \\
     & & \mid \caseconf{x}{y_1 : P_1 ,..., y_n : P_n} \ \nonumber \\
-    & & \mid \instantiate{\tilde{u}}{\tilde{v}}{u_1}{z}{P}{\tilde{x}}{\tilde{y}} \nonumber
+    & & \mid \behaviorconf{\tilde{x}}{\tilde{y}} \nonumber
   \end{eqnarray}
   \caption{\api の\conf の文法}
   \label{api_config}
 \end{figure}
+
+ただし，$B$ は振る舞いの雛形で，$B \defeq \behaviortemplate{\tilde{x}}{\tilde{y}}{x_1}{z}{P}$ である．
+これは，$\tilde{x}$ という名前の組と，$\tilde{y}$ という名前の組を受け取り，$\tilde{x}$ の第一要素 $x_1$ を名前とし，メッセージ $v$ を受け取って $P$ を実行するようなアクターを返す関数であることを意味する．
+また，$\tilde{x}$ の要素数は1または2とすし，この理由は \ref{typing_rule} 節で示す．
 
 %% \begin{figure}[h]
 %%   \begin{align*}
@@ -284,6 +288,8 @@ $ f^{*}(f(x)) = \bot $ は，仮名のアクターはさらに仮の名前を持
 \end{dfn}
 
 \subsection{型付け規則}
+
+\label{typing_rule}
 
 \api が先に述べた性質を満たすようにするための型付け規則は \srcref{api:typing} のようになっている．\conf $ P $ ，$ P $ の\recep $ \rho $ ，$ P $ 中の仮の名前から正規の名前への写像 $f : \rho \rightarrow \rho^*$ で， $\rho ; f \vdash P$ が成り立つとき，$ P $ は正しく型付けされている．
 
