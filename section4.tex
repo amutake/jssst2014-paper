@@ -281,7 +281,8 @@ $\rho$ の場合分けを行うと，以下のように4つに分けられるこ
 \subsubsection{\textsc{Case} 規則の分割}
 
 型付け規則 \textsc{Case} は，前提の数がパターンの数に依存して変動するので，Coq で定義しにくい．よって \srcref{api:case_split} のように \textsc{Case} をパターンが $0$ 個の場合と $i + 1$ に分割し，帰納的に定義する．これで，\textsc{Case} 規則の前提の数はパターンの数によらず一定となる．
-
+\textsc{Case-nil} は \texttt{case} 式が空であるような型付け規則で，パターンがないので，空集合と空関数で型付けできる．
+\textsc{Case-cons} は \texttt{case} 式のパターンを一つ追加するような型付け規則である．この際，同じ仮の名前が \texttt{case} の枝に現れないようにするために，互換性が必要となる．
 
 \begin{figure}[t]
   \infrule[Case-nil]{
@@ -339,7 +340,7 @@ $f, f_1, ..., f_n$ が相互に互換性を持つことは自明ではない．�
 
 \subsubsection{\textsc{Res} 規則}
 
-\tmp の値域の制限を行う二項演算子の定義を変更したことに合わせて，型付け規則 \textsc{Res} は \srcref{api:res_rule} のようになる．
+\tmp の値域の制限を行う二項演算子の定義を変更したことに合わせて，型付け規則 \textsc{Res} は \srcref{api:res_rule} のようになる．\srcref{api:typing} から演算子を変えただけである．
 
 \begin{figure}[t]
   \infrule[Res]{
@@ -356,6 +357,9 @@ $f, f_1, ..., f_n$ が相互に互換性を持つことは自明ではない．�
 Coq による定義では振る舞いの雛形からアクターを作る\conf $\behaviorconf{\tilde{x}}{\tilde{y}} (B \defeq \behaviortemplate{\tilde{u}}{\tilde{v}}{u_1}{z}{P})$ を，$\tilde{u}$ の要素数が1である場合と2である場合で二つに分割している．
 よって型付け規則も二つに分割する必要があり，\srcref{api:inst_rule} のようになる．
 ただし，ここでは $B$ を使う代わりに $B$ の展開後の項を用いている．
+\textsc{Inst-1} は，$\tilde{u}$ の要素数が1である場合で，振る舞いの雛形から $x$ という正規の名前で作るような型付け規則である．
+\textsc{Inst-2} は，$\tilde{u}$ の要素数が2である場合で，振る舞いの雛形から $x_1$ という仮の名前，$x_2$ という正規の名前でアクターを作るような型付け規則である．
+
 
 \begin{figure}[t]
   \infrule[Inst-1]{
