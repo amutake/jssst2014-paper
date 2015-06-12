@@ -4,6 +4,7 @@
 まず%% 名前，\conf，\conf 中の\free，
 仮名関数およびその性質についての Coq での表現を述べる．
 次に型付け規則を Coq で使いやすくための規則の具体化を説明し，最後に型システムの健全性の Coq での証明方針を述べる．
+また，Coq による定義と証明の全文は GitHub リポジトリ\cite[api]{api}に公開している．
 %% また，Coq のバージョンは 8.4pl4 を用いている．
 %% 本研究では，アクターの振る舞いに関するこの3つの補題について，Coq を使って形式的な証明を与える．
 
@@ -308,6 +309,15 @@ $f, f_1, ..., f_n$ が相互に互換性を持つことは自明ではない．�
   \label{lem:compatible}
 \end{lem}
 
+この補題の Coq による証明は \texttt{Fun} モジュールの \texttt{fun\_plus\_compatible} という名前にあるが，以下にその概略を示す．
+
+まず $f$ と $f_1$ が $\oplus$ について可換であること， $f$ と $f_2$ が $\oplus$ について可換であることを，$f$ と $f_1 \oplus f_2$ が互換性を持ち $f_1$ と $f_2$ もまた互換性を持つという仮定から示す．このことから，$f$，$f_1$，$f_2$ が相互に可換になることがわかる．
+次に，$f$，$f_1$，$f_2$ の任意の組み合わせの合成が\tmp の性質を満たすことを証明する．まずは $f$ と $f_1$ の合成が仮名関数の性質を満たすことを証明する．
+$f$ と $f_1 \oplus f_2$ が互換性を持つという仮定から，$f \oplus (f_1 \oplus f_2)$ が仮名関数の性質を満たす．また仮名関数の合成は結合律が成り立つので $(f \oplus f_1) \oplus f_2$ も仮名関数の性質を満たす．
+合成が仮名関数の性質を満たしているならば合成の左手は仮名関数の性質を満たす，という性質 (\texttt{fun\_prop\_plus\_fst} という名前で証明済み) を，先に証明した $(f \oplus f_1) \oplus f_2$ も仮名関数の性質を満たすということに使うと，$f \oplus f_1$ が仮名関数の性質を満たすということを導ける．
+$f$ と $f_2$ についても同様である．また，$f_1$ と $f_2$ については仮定から明らかである．
+以上から，$f$，$f_1$，$f_2$ の任意の組み合わせの合成が\tmp の性質を満たすことがわかったので，$f$，$f_1$，$f_2$ が相互に可換になることと合わせると，$f$，$f_1$，$f_2$ は相互に互換性を持つことがわかる．
+
 この補題によって，$f, f_1, ... , f_n$ が相互に互換性を持つことが帰納的に保証される．%% この補題は Coq では \srcref{coq:fun_plus_compatible} と定義できる．
 
 %% \begin{figure}[tbph]
@@ -346,7 +356,7 @@ Coq による定義では振る舞いの雛形からアクターを作る\conf �
     \typing{\{u_1,u_2\}}{ch_2(u_1,u_2)}{\actorconf{u_1}{z}{P}}
     \andalso x_1 \neq x_2
   }{
-    \typing{\{x_1, x_2\}}{ch_2(x_1, x_2)}{\instantiate{\tuple{u_1,u_2}}{\tilde{y}}{u_1}{z}{P}{\tuple{x_1,x_2}}{\tilde{y}}}
+    \typing{\{x_1, x_2\}}{ch_2(x_1, x_2)}{\\ \ \ \ \ \ \ \ \ \instantiate{\tuple{u_1,u_2}}{\tilde{y}}{u_1}{z}{P}{\tuple{x_1,x_2}}{\tilde{y}}}
   }
   \caption{型付け規則 \textsc{Inst} の分割}
   \label{api:inst_rule}
@@ -367,16 +377,7 @@ Coq による定義では振る舞いの雛形からアクターを作る\conf �
 \subsection{健全性の証明}
 
 
-健全性の証明は関数の同値性についての議論が必要となるので，関数の外延的同値という公理を用いる．これは以下のような公理であり，Coq の標準ライブラリで提供されているものを使用した．%%  \srcref{coq:fun_ext} のように定義されている．
-
-\begin{axm}[関数の外延的同値]
-  関数 $ f, g $ が任意の入力に対して等しい結果を返すならば $ f, g $ は等しい．
-\end{axm}
-
-
-
-
-また，以下の3つの補題を証明しておくと，健全性の証明を行いやすい．
+最後に健全性の証明を行うが，以下の3つの補題を証明しておくと，健全性の証明を行いやすいので証明しておく．対応する Coq による証明は，\texttt{Typing.v} ファイルの \texttt{typing\_in\_range\_in\_domain}，\texttt{typing\_in\_domain\_1} および \texttt{typing\_in\_domain\_2}，\texttt{Soundness.v} ファイルの \texttt{typing\_fun\_exclusive} にある．
 %% \begin{figure}[tbph]
 %%   \lstinputlisting{./src/fun_ext.v}
 %%   \caption{関数の外延的同値}
@@ -399,7 +400,7 @@ Coq による定義では振る舞いの雛形からアクターを作る\conf �
   $\typing{\rho_1}{f_1}{P_1}$ かつ $\typing{\rho_2}{f_2}{P_2}$ であり $ \rho_1 \cap \rho_2 \neq \emptyset $ ならば，$fun\_exclusive(f_1, f_2)$ を満たす．
 \end{lem}
 
-健全性は，以上の公理と補題を利用して，型付け規則の構造に関する帰納法で証明できる．Coq による定義と証明の全文は GitHub リポジトリ\cite[api]{api}に公開している．
+健全性は，以上の公理と補題を利用して，型付け規則の構造に関する帰納法で証明できる．対応する Coq の証明は \texttt{Soundness.v} ファイルの \texttt{Soundness} にある．
 
 %% これらの補題は，Coq では \srcref{coq:lemma} のように定義した．
 
