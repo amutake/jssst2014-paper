@@ -1,3 +1,10 @@
+概要
+----
+
+修正しましたが、型保存性の証明はまだできていません。
+また、monadic にする理由とAπ計算を用いる妥当性についてはわかりません。
+
+
 変更点
 ------
 
@@ -24,10 +31,3 @@
 - その他細かい文言・間違いの修正
 
 [1]: Agha, G.: Actors: A Model of Concurrent Computation in Distributed Systems, MIT Press, 1986.
-
-
-その他
-------
-
-- monadic なπ計算ベースにする理由がない
-- Aπ計算を用いる理由がない
