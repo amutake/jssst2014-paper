@@ -248,8 +248,8 @@
 \end{dfn}
 
 
-\begin{dfn}[\tmp の定義域の制限]
-  $f : \rho_1 \rightarrow \rho_1^*, \rho \subset \rho_1$ である $f, \rho$ に対して定義域の制限を表す二項演算子 $f | \rho : \rho \rightarrow \rho^*$ を以下のように定義する． \\
+\begin{dfn}[\tmp の値域の制限]
+  $f : \rho_1 \rightarrow \rho_1^*, \rho \subset \rho_1$ である $f, \rho$ に対して値域の制限を表す二項演算子 $f | \rho : \rho \rightarrow \rho^*$ を以下のように定義する． \\
 \begin{adjustvboxheight}
   \[ (f | \rho)(x) = \begin{cases}
     f(x) & f(x) \in \rho \mbox{のとき} \\
@@ -339,10 +339,10 @@ $ f^{*}(f(x)) = \bot $ は，仮名のアクターはさらに仮の名前を持
   }
   \vspace{14pt}
   \infrule[Inst]{
-    \typing{\{\tilde{u}\}}{ch(\tilde{u})}{\actorconf{u_1}{z}{P}}
+    \typing{\{\tilde{x}\}}{ch(\tilde{y})}{\behaviorconf{\tilde{x}}{\tilde{y}}}
     \andalso len(\tilde{x}) = 2 \ \Rightarrow \ x_1 \neq x_2
   }{
-    \typing{\{\tilde{x}\}}{ch(\tilde{x})}{\instantiate{\tilde{u}}{\tilde{v}}{u_1}{z}{P}{\tilde{x}}{\tilde{y}}}
+    \typing{\{\tilde{x}\}}{ch(\tilde{x})}{\behaviorconf{\tilde{x}}{\tilde{y}}}
   }
 
   \caption{型付け規則}
