@@ -343,7 +343,9 @@ $f$ と $f_2$ についても同様である．また，$f_1$ と $f_2$ につ�
 
 \subsubsection{\textsc{Inst} 規則の分割}
 
-Coq による定義では振る舞いの雛形からアクターを作る\conf を二つに分割している．よって型付け規則も二つに分割する必要がある．\srcref{api:inst_rule} のようになる．
+Coq による定義では振る舞いの雛形からアクターを作る\conf $\behaviorconf{\tilde{x}}{\tilde{y}} (B \defeq \behaviortemplate{\tilde{u}}{\tilde{v}}{u_1}{z}{P})$ を，$\tilde{u}$ の要素数が1である場合と2である場合で二つに分割している．
+よって型付け規則も二つに分割する必要があり，\srcref{api:inst_rule} のようになる．
+ただし，ここでは $B$ を使う代わりに $B$ の展開後の項を用いている．
 
 \begin{figure}[t]
   \infrule[Inst-1]{
