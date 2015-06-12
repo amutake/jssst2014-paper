@@ -232,7 +232,7 @@ Coq による形式化では簡単にするためにその情報を捨て，任�
 
 この場合分けをもとに，\textsc{Act} を4つに分割すると，\srcref{coq:act} のような定義にできる．
 
-\begin{figure*}[t]
+\begin{figure}[t]
   \infrule[Act-empty]{
     \typing{\emptyset}{ch_0}{P}
   }{
@@ -265,7 +265,7 @@ Coq による形式化では簡単にするためにその情報を捨て，任�
 
   \caption{型付け規則\textsc{Act} の分割}
   \label{coq:act}
-\end{figure*}
+\end{figure}
 
 
 \subsubsection{\textsc{Case} 規則の分割}
@@ -273,7 +273,7 @@ Coq による形式化では簡単にするためにその情報を捨て，任�
 型付け規則 \textsc{Case} は，前提の数がパターンの数に依存して変動するので，Coq で定義しにくい．よって \srcref{api:case_split} のように \textsc{Case} をパターンが $0$ 個の場合と $i + 1$ に分割し，帰納的に定義する．これで，\textsc{Case} 規則の前提の数はパターンの数によらず一定となる．
 
 
-\begin{figure*}[t]
+\begin{figure}[t]
   \infrule[Case-nil]{
   }{
     \typing{\emptyset}{\{\}}{\caseconf{x}{}}
@@ -281,6 +281,7 @@ Coq による形式化では簡単にするためにその情報を捨て，任�
   \vspace{14pt}
   \infrule[Case-cons]{
     \typing{\rho}{f}{\caseconf{x}{y_1 : P_1, ... , y_i : P_i}}
+    \\
     \andalso \typing{\rho'}{f'}{P}
     \andalso compatible(f, f')
   }{
@@ -289,7 +290,7 @@ Coq による形式化では簡単にするためにその情報を捨て，任�
 
   \caption{型付け規則\textsc{Case} の分割}
   \label{api:case_split}
-\end{figure*}
+\end{figure}
 
 
 また，この定義によって作られる型付け
@@ -317,7 +318,7 @@ $f, f_1, ..., f_n$ が相互に互換性を持つことは自明ではない．�
 
 \tmp の定義域の制限を行う二項演算子の定義を変更したことに合わせて，型付け規則 \textsc{Res} は \srcref{api:res_rule} のようになる．
 
-\begin{figure*}[t]
+\begin{figure}[t]
   \infrule[Res]{
     \typing{\rho}{f}{P}
   }{
@@ -325,13 +326,13 @@ $f, f_1, ..., f_n$ が相互に互換性を持つことは自明ではない．�
   }
   \caption{型付け規則 \textsc{Res}}
   \label{api:res_rule}
-\end{figure*}
+\end{figure}
 
 \subsubsection{\textsc{Inst} 規則の分割}
 
 Coq による定義では振る舞いの雛形からアクターを作る\conf を二つに分割している．よって型付け規則も二つに分割する必要がある．\srcref{api:inst_rule} のようになる．
 
-\begin{figure*}[t]
+\begin{figure}[t]
   \infrule[Inst-1]{
     \typing{\{u\}}{ch_1(u)}{\actorconf{u}{z}{P}}
   }{
@@ -346,7 +347,7 @@ Coq による定義では振る舞いの雛形からアクターを作る\conf �
   }
   \caption{型付け規則 \textsc{Inst} の分割}
   \label{api:inst_rule}
-\end{figure*}
+\end{figure}
 
 
 %% \subsection{型付け規則の Coq での定義}

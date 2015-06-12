@@ -291,7 +291,7 @@ $ f^{*}(f(x)) = \bot $ は，仮名のアクターはさらに仮の名前を持
 \api が先に述べた性質を満たすようにするための型付け規則は\srcref{api:typing} のようになる．
 \conf $ P $，$ P $ の\recep $ \rho $，$ P $ 中の仮の名前から正規の名前への写像 $f : \rho \rightarrow \rho^*$ で， $\rho ; f \vdash P$ が成り立つとき，$ P $ は正しく型付けされているという．
 
-\begin{figure*}[t]
+\begin{figure}[t]
   \infrule[Nil]{
   }{
     \typing{\emptyset}{\{\}}{\nilconf}
@@ -306,6 +306,7 @@ $ f^{*}(f(x)) = \bot $ は，仮名のアクターはさらに仮の名前を持
     \typing{\rho}{f}{P}
     \andalso \rho - \{x\} = \hat{z}
     \andalso y \notin \rho
+    \\
     \andalso f = \begin{cases}
       ch(\tuple{x} \tupapp \tuple{\hat{z}}) & x \in \rho \mbox{のとき} \\
       ch(\tuple{\hat{z}}) & \mbox{その他}
@@ -319,7 +320,7 @@ $ f^{*}(f(x)) = \bot $ は，仮名のアクターはさらに仮の名前を持
     \andalso compatible(f_i, f_j)
   }{
     \typing{(\cup_i \rho_i)}{(f_i \oplus f_2 \oplus ... \oplus f_n)}{
-      {\tt case} \ x \ {\tt of} \ (y_1 : P_1,...,y_n : P_n)
+      \\ \ \ \ \ \ \ \ {\tt case} \ x \ {\tt of} \ (y_1 : P_1,...,y_n : P_n)
     }
   }
   \vspace{14pt}
@@ -346,7 +347,7 @@ $ f^{*}(f(x)) = \bot $ は，仮名のアクターはさらに仮の名前を持
 
   \caption{型付け規則}
   \label{api:typing}
-\end{figure*}
+\end{figure}
 
 それぞれの規則についての説明を以下に示す．
 
